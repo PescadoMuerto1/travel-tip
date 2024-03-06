@@ -148,7 +148,7 @@ function onPanToUserPos() {
 
 function updateUserDistance(locs) {
     if (!gUserPos) return locs
-    
+        console.log(gUserPos);
         locs.forEach(loc => {
             const distance = utilService.getDistance(gUserPos, { lat: loc.geo.lat, lng: loc.geo.lat }, 'k')
             loc.distance = distance

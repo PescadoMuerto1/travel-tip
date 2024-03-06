@@ -72,6 +72,7 @@ function remove(locId) {
 }
 
 function save(loc) {
+    console.log(loc);
     if (loc.id) {
         loc.updatedAt = Date.now()
         return storageService.put(DB_KEY, loc)

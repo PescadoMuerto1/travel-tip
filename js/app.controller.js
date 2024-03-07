@@ -19,7 +19,6 @@ window.app = {
 }
 
 var gUserPos
-
 function onInit() {
     loadAndRenderLocs()
 
@@ -273,12 +272,16 @@ async function updateUserDistance(locs) {
         locService.getLocCountByRateMap().then(stats => {
             handleStats(stats, 'loc-stats-rate')
         })
+        .then(locService.getLocCountByUpdateMap().then(stats => {
+            handleStats(stats, 'loc-stats-update')
+        }))
     }
 
     function handleStats(stats, selector) {
         // stats = { low: 37, medium: 11, high: 100, total: 148 }
         // stats = { low: 5, medium: 5, high: 5, baba: 55, mama: 30, total: 100 }
         const labels = cleanStats(stats)
+        console.log(labels);
         const colors = utilService.getColors()
 
         var sumPercent = 0

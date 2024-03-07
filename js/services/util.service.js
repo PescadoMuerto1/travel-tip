@@ -115,6 +115,6 @@ function getDistance(latLng1, latLng2, unit) {
         if (unit === 'N') { dist = dist * 0.8684 }
 
         dist = +dist.toFixed(2)
-        return dist
+        return Promise.resolve(dist)
     }
 }

@@ -71,11 +71,10 @@ function remove(locId) {
     return storageService.remove(DB_KEY, locId)
 }
 
-function save(loc) {
-    console.log(loc);
+async function save(loc) {
     if (loc.id) {
         loc.updatedAt = Date.now()
-        return storageService.put(DB_KEY, loc)
+        return await storageService.put(DB_KEY, loc)
     } else {
         loc.createdAt = loc.updatedAt = Date.now()
         return storageService.post(DB_KEY, loc)

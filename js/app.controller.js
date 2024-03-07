@@ -146,16 +146,14 @@ function onPanToUserPos() {
         })
 }
 
-function updateUserDistance(locs) {
+async function updateUserDistance(locs) {
     if (!gUserPos) return locs
-        console.log(gUserPos);
-        locs.forEach(loc => {
-            const distance = utilService.getDistance(gUserPos, { lat: loc.geo.lat, lng: loc.geo.lng }, 'k')
-            loc.distance = distance
-            locService.save(loc)
-        })
-        
- 
+
+    for (let i = 0; i < locs.length; i++) {
+        const distance = await utilService.getDistance(gUserPos, { lat: locs[i].geo.lat, lng: locs[i].geo.lng }, 'k')
+        locs[i].distance = distance
+        await locService.save(locs[i])
+    }
     return locs
 }
 
@@ -198,6 +196,7 @@ function updateUserDistance(locs) {
         const el = document.querySelector('.selected-loc')
         el.querySelector('.loc-name').innerText = loc.name
         el.querySelector('.loc-address').innerText = loc.geo.address
+        el.querySelector('.loc-distance').innerText = loc.distance
         el.querySelector('.loc-rate').innerHTML = '★'.repeat(loc.rate)
         el.querySelector('[name=loc-copier]').value = window.location
         el.classList.add('show')
